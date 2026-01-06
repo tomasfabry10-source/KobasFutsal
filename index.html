@@ -7,7 +7,7 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+ 
     <style>
         :root {
             /* KLUBOVÉ BARVY */
@@ -24,7 +24,7 @@
             --draw: #f9a825;
             --future: #555; 
         }
-
+ 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
@@ -34,7 +34,7 @@
             font-family: 'Roboto', sans-serif;
             padding-bottom: 90px;
         }
-
+ 
         /* --- HLAVIČKA --- */
         header {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #000 100%);
@@ -47,14 +47,34 @@
         
         h1 { margin: 0; font-family: 'Teko', sans-serif; text-transform: uppercase; font-size: 32px; letter-spacing: 2px; }
         .subtitle { font-size: 14px; color: var(--primary-red); font-weight: bold; letter-spacing: 4px; text-transform: uppercase; margin-top: -5px; }
-
+ 
         /* --- OBSAH --- */
         .container { padding: 15px; display: none; animation: fadeIn 0.3s ease; }
         .container.active { display: block; }
-
+ 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
+ 
         h2 { font-family: 'Teko', sans-serif; color: var(--text-gray); border-bottom: 1px solid var(--primary-red); padding-bottom: 5px; font-weight: 400; font-size: 24px; margin-top: 25px; margin-bottom: 15px; }
+ 
+        /* STATISTIKY (FORMA A SKÓRE) */
+        .stats-overview {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-item .label { font-size: 10px; color: var(--text-gray); text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .stat-item .value { font-family: 'Teko', sans-serif; font-size: 24px; color: #fff; }
+        .form-dots { display: flex; gap: 5px; margin-top: 5px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.w { background: var(--win); }
+        .dot.l { background: var(--loss); }
+        .dot.d { background: var(--draw); }
 
         /* KARTY ZÁPASŮ */
         .match-card {
@@ -67,7 +87,7 @@
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
+ 
         /* Proužek výsledku */
         .match-card::before {
             content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
@@ -76,34 +96,25 @@
         .match-card.loss::before { background: var(--loss); }
         .match-card.draw::before { background: var(--draw); }
         .match-card.future::before { background: var(--future); }
-
+ 
         /* --- OPRAVA ZAROVNÁNÍ --- */
         .team { font-weight: bold; font-size: 15px; flex: 1; }
-        
-        /* Tým vlevo se zarovná doprava (ke skóre) */
-        .match-card .team:first-child { 
-            text-align: right; 
-        }
-        
-        /* Tým vpravo se zarovná doleva (ke skóre) */
-        .match-card .team:last-child { 
-            text-align: left; 
-        }
-
+        .match-card .team:first-child { text-align: right; }
+        .match-card .team:last-child { text-align: left; }
+ 
         .team.kobas, .team.kobas-home { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .team.opponent, .team.opponent-away { color: var(--text-gray); }
-        /* ----------------------- */
-
+ 
         .score-box {
             background: rgba(0,0,0,0.3);
             padding: 5px 0; border-radius: 4px;
-            margin: 0 15px; /* Větší mezera od názvů */
+            margin: 0 15px;
             text-align: center; min-width: 70px;
         }
         .score { font-family: 'Teko', sans-serif; font-size: 22px; line-height: 1; }
         .time { font-family: 'Teko', sans-serif; font-size: 20px; color: #ffd700; line-height: 1; letter-spacing: 1px; }
         .date { font-size: 10px; color: var(--text-gray); display: block; margin-bottom: 2px; }
-
+ 
         /* SOUPISKA - IKONY */
         .roster-section { margin-bottom: 20px; }
         .player-row {
@@ -126,7 +137,7 @@
         .player-info { flex: 1; }
         .player-name { font-weight: bold; font-size: 16px; display: block; }
         .player-role { font-size: 11px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
-
+ 
         /* KONTAKTY */
         .contact-card {
             background: var(--card-bg); padding: 20px; border-radius: 12px; margin-bottom: 15px;
@@ -137,7 +148,7 @@
         .contact-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 14px; color: var(--text-gray); }
         .contact-row i { width: 25px; color: var(--primary-red); }
         .contact-row a { color: inherit; text-decoration: none; }
-
+ 
         /* NAVIGACE */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
@@ -148,7 +159,7 @@
             padding-bottom: max(12px, env(safe-area-inset-bottom));
             z-index: 200;
         }
-
+ 
         .nav-item {
             color: rgba(255,255,255,0.5);
             text-align: center; font-size: 10px;
@@ -158,18 +169,36 @@
         .nav-item i { font-size: 18px; margin-bottom: 4px; }
         .nav-item.active { color: #fff; transform: translateY(-2px); }
         .nav-item.active i { color: var(--primary-red); }
-
+ 
     </style>
 </head>
 <body>
-
+ 
     <header>
         <h1>KOBAS BRNO</h1>
         <div class="subtitle">FUTSAL CLUB</div>
     </header>
-
+ 
     <div id="tab-matches" class="container active">
         
+        <div class="stats-overview">
+            <div class="stat-item">
+                <span class="label">Aktuální skóre</span>
+                <div class="value">37 : 52</div>
+            </div>
+            <div class="stat-item">
+                <span class="label">Forma (posl. 6)</span>
+                <div class="form-dots">
+                    <div class="dot l"></div>
+                    <div class="dot w"></div>
+                    <div class="dot l"></div>
+                    <div class="dot l"></div>
+                    <div class="dot l"></div>
+                    <div class="dot l"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="match-card loss">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -178,7 +207,7 @@
             </div>
             <div class="team opponent">All In</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -187,7 +216,7 @@
             </div>
             <div class="team opponent">Soccer</div>
         </div>
-
+ 
         <div class="match-card win">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -196,7 +225,7 @@
             </div>
             <div class="team opponent">Blue Flames</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -205,7 +234,7 @@
             </div>
             <div class="team opponent">kAPPLE</div>
         </div>
-
+ 
         <div class="match-card draw">
             <div class="team opponent">Wodowa C</div>
             <div class="score-box">
@@ -214,7 +243,7 @@
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team opponent">Dynamo</div>
             <div class="score-box">
@@ -223,7 +252,7 @@
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team opponent">Malhostovice</div>
             <div class="score-box">
@@ -232,7 +261,7 @@
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
+ 
         <div class="match-card win">
             <div class="team opponent">AVM Metal</div>
             <div class="score-box">
@@ -241,7 +270,7 @@
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -259,7 +288,7 @@
             </div>
             <div class="team opponent">Žab. Vlci C</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -268,7 +297,7 @@
             </div>
             <div class="team opponent">Poclain B</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team opponent">Joppa</div>
             <div class="score-box">
@@ -277,7 +306,7 @@
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
+ 
         <div class="match-card win">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -286,7 +315,7 @@
             </div>
             <div class="team opponent">Popůvky</div>
         </div>
-
+ 
         <div class="match-card loss">
             <div class="team kobas">Kobas</div>
             <div class="score-box">
@@ -296,31 +325,31 @@
             <div class="team opponent">Lamy</div>
         </div>
     </div>
-
+ 
     <div id="tab-cup" class="container">
         <div style="text-align: center; margin-bottom: 20px;">
             <i class="fas fa-trophy" style="font-size: 50px; color: #ffd700; margin-bottom: 10px;"></i>
             <h2 style="border: none; margin: 0; color: #ffd700;">BRNO OPEN CUP 2026</h2>
         </div>
-
-        <div class="match-card future">
+ 
+        <div class="match-card loss">
             <div class="team opponent">Troubsko</div>
             <div class="score-box">
                 <span class="date">3.1.</span>
-                <div class="time">16:20</div>
+                <div class="score">4 : 1</div>
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
-        <div class="match-card future">
+ 
+        <div class="match-card loss">
             <div class="team kobas-home">Kobas</div>
             <div class="score-box">
                 <span class="date">3.1.</span>
-                <div class="time">17:30</div>
+                <div class="score">1 : 3</div>
             </div>
             <div class="team opponent-away">All In</div>
         </div>
-
+ 
         <div class="match-card future">
             <div class="team opponent">Ukrajina</div>
             <div class="score-box">
@@ -329,7 +358,7 @@
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
+ 
         <div class="match-card future">
             <div class="team kobas-home">Kobas</div>
             <div class="score-box">
@@ -338,7 +367,7 @@
             </div>
             <div class="team opponent-away">STŽ</div>
         </div>
-
+ 
         <div class="match-card future">
             <div class="team opponent">Lamy</div>
             <div class="score-box">
@@ -347,7 +376,7 @@
             </div>
             <div class="team kobas">Kobas</div>
         </div>
-
+ 
         <div class="match-card future">
             <div class="team kobas-home">Kobas</div>
             <div class="score-box">
@@ -356,7 +385,7 @@
             </div>
             <div class="team opponent-away">Veritas</div>
         </div>
-
+ 
         <div class="match-card future">
             <div class="team kobas-home">Kobas</div>
             <div class="score-box">
@@ -365,7 +394,7 @@
             </div>
             <div class="team opponent-away">Střelice B</div>
         </div>
-
+ 
         <div class="match-card future">
             <div class="team kobas-home">Kobas</div>
             <div class="score-box">
@@ -375,7 +404,7 @@
             <div class="team opponent-away">Diverso</div>
         </div>
     </div>
-
+ 
     <div id="tab-team" class="container">
         
         <h2>BRANKÁŘI</h2>
@@ -388,7 +417,7 @@
                 </div>
             </div>
         </div>
-
+ 
         <h2>OBRÁNCI</h2>
         <div class="roster-section">
             <div class="player-row">
@@ -462,7 +491,7 @@
                 </div>
             </div>
         </div>
-
+ 
         <h2>ÚTOČNÍCI</h2>
         <div class="roster-section">
             <div class="player-row">
@@ -530,8 +559,11 @@
             </div>
         </div>
     </div>
-
+ 
     <div id="tab-info" class="container">
+        <div style="text-align: center; margin-bottom: 25px;">
+            <img src="Logopit_1740307850388.png" alt="KOBAS Logo" style="width: 150px; height: auto;">
+        </div>
         
         <div class="contact-card">
             <div class="contact-role">Statutární zástupce klubu</div>
@@ -546,7 +578,7 @@
                 <i class="fas fa-envelope"></i> <a href="mailto:faistllukas@gmail.com">faistllukas@gmail.com</a>
             </div>
         </div>
-
+ 
         <div class="contact-card">
             <div class="contact-role">Zástupce</div>
             <div class="contact-name">Michal Hrabovský</div>
@@ -557,14 +589,14 @@
                 <i class="fas fa-envelope"></i> <a href="mailto:h.majkl@email.cz">h.majkl@email.cz</a>
             </div>
         </div>
-
+ 
         <div style="text-align: center; margin-top: 30px;">
             <div style="font-size: 10px; color: #666; text-transform: uppercase;">Partner klubu</div>
             <div style="color: #fff; font-size: 16px; margin-top: 5px;">PELLEGRINI CAFFE RESTAURANT</div>
         </div>
-
+ 
     </div>
-
+ 
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchTab('matches', this)">
             <i class="fas fa-futbol"></i>
@@ -583,7 +615,7 @@
             <div>Info</div>
         </div>
     </nav>
-
+ 
     <script>
         function switchTab(tabId, element) {
             document.querySelectorAll('.container').forEach(el => el.classList.remove('active'));
@@ -595,9 +627,8 @@
             window.scrollTo(0,0);
         }
     </script>
-
+ 
 </body>
 </html>
-
 
 
